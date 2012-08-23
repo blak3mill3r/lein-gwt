@@ -19,18 +19,16 @@ You can put options for either com.google.gwt.dev.Compiler or com.google.gwt.dev
 ```clojure
     (defproject myproject "1.0-SNAPSHOT"
       :gwt-modules ["mypackage.MyGWTModule"]
-      :gwt-options {:localWorkers 2, :war "my/output/dir", :logdir "some/where"})
+      :gwt-options {:localWorkers 2, :war "my/output/dir", :logdir "some/where"}
       :gwt-options-devmode {:logLevel DEBUG}
+      )
 ```
 
-Note, logdir is only an option for DevMode, not the compiler. That is okay.
-Only when you need, for example, a different logLevel option passed to DevMode,
-do you need to use :gwt-options-devmode, otherwise stuffing all options in
- :gwt-options works fine.
+Note, logdir is only a valid option for DevMode, and localWorkers is only valid for the compiler. That is okay, the plugin will handle it. Only when you need, for example, a different logLevel option passed to DevMode than to the compiler, do you need to use :gwt-options-devmode, otherwise stuffing all options in :gwt-options works fine.
 
 ## Installation
 
-This is not available on Clojars at the moment, you'll have to clone, build a jar, mvn install:install-file it, and then put this in dev-dependencies in project.clj
+This is not available on Clojars at the moment, you'll have to git clone, lein jar, mvn install:install-file it, and then put this in dev-dependencies in project.clj:
 
 ```clojure
      [lein-gwt "0.1.1"]
@@ -58,6 +56,7 @@ and then here's how to compile and start devmode, respectively:
 ## License
 
 Copyright (C) 2012 Blake Miller
+
 Copyright (C) 2010 Tero Parviainen
 
 Distributed under the MIT license (see [LICENSE](http://github.com/teropa/lein-gwt/blob/master/LICENSE)).
