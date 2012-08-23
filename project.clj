@@ -1,4 +1,4 @@
-(defproject lein-gwt "0.1.0"
-  :description "Leiningen plugin for the GWT compiler"
-  :dependencies [[org.clojure/clojure "1.2.0"]
+(defproject lein-gwt "0.1.1"
+  :description "Leiningen plugin for the GWT compiler and GWT devmode"
+  :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/clojure-contrib "1.2.0"]])
