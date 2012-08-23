@@ -90,7 +90,7 @@
 
 (defn- invoke-and-tail [project start-class raw-options]
   (let [process-args (process-args project start-class (to-opts raw-options))
-        p (-> (ProcessBuilder. process-args)
+        p (-> (doto (ProcessBuilder. process-args) (.redirectErrorStream true))
                 (.start))]
       (doseq [line (streams/read-lines (.getInputStream p))]
         (println line))))
