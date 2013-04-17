@@ -1,7 +1,7 @@
 (ns leiningen.gwt
-  (:require [clojure.contrib.duck-streams :as streams])
-  (:require [clojure.contrib.string :as string])
-  (:require [leiningen.classpath :as cp])
+  (:use [clojure.java.io])
+  (:require [clojure.string :as string])
+  (:require [leiningen.core.classpath :as cp])
   )
 
 (def default-options
@@ -92,17 +92,17 @@
   (let [process-args (process-args project start-class (to-opts raw-options))
         p (-> (doto (ProcessBuilder. process-args) (.redirectErrorStream true))
                 (.start))]
-      (doseq [line (streams/read-lines (.getInputStream p))]
+      (doseq [line (line-seq (reader (.getInputStream p ) ))]
         (println line))))
 
-(defn- gwtc [project]
+(defn- gwtc [project & args]
   (invoke-and-tail project "com.google.gwt.dev.Compiler" (gwtc-options project)))
 
-(defn- gwtdev [project]
+(defn- gwtdev [project & args]
   (invoke-and-tail project "com.google.gwt.dev.DevMode" (devmode-options project)))
 
 (defn gwt [project & args]
   (if
     (= (first args) "dev")
-    (gwtdev project)
-    (gwtc project)))
+    (gwtdev project args)
+    (gwtc project args)))
